@@ -39,6 +39,8 @@ namespace Data_Dashboard
             services.AddDbContext<Data_DashboardContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddApplicationInsightsTelemetry(Configuration);
+
             services.AddMvc();
             
         }

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Data_Dashboard.Data;
 using Data_Dashboard.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Data_Dashboard.Controllers
 {
@@ -17,25 +19,27 @@ namespace Data_Dashboard.Controllers
         {
             context = ctx;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var data = await context.TychoLevel2.Take(10).ToListAsync();
             return View();
         }
 
-        public IActionResult Graph1()
+        public async Task<IActionResult> Graph1()
         {
             ////TODO: Here is where I will get the data to load the first graph.
-            var data = context.TychoLevel2.Take(10).ToList();
+            var data =await context.TychoLevel2.Take(10).ToListAsync();
+            Debug.WriteLine("This program has stopped running!");
             return View("Graph1");
         }
 
-        public IActionResult Graph2()
+        public async Task<IActionResult> Graph2()
         {
             ////TODO: Here is where I will get the data to load the first graph.
             return View("Graph2");
         }
 
-        public IActionResult Graph3()
+        public async Task<IActionResult> Graph3()
         {
             ////TODO: Here is where I will get the data to load the first graph.
             return View("Graph3");

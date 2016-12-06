@@ -7,6 +7,8 @@ namespace Data_Dashboard.Models
 {
     public class TychoLevel1
     {
+        public int ID { get; set; }
+
         public string epi_week { get; set; }
 
         public string state { get; set; }
