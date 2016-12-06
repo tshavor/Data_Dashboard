@@ -2,20 +2,9 @@
     ViewData["Title"] = "Home Page"; //This is what displays in the tab on the webpage (Home Page- Data_Dashboard)
 }
 
-<div class="jumbotron">
-    <h1>Jumbotron</h1>
-    <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <p><a class="btn btn-primary btn-lg">Learn more</a></p>
-</div>
+@{await Html.RenderPartialAsync("Graph1", "Home");}
 
-<div class="jumbotron">
-    <h1>Jumbotron</h1>
-    <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <p><a class="btn btn-primary btn-lg">Learn more</a></p>
-</div>
+@{await Html.RenderPartialAsync("Graph2", "Home");}
 
-<div class="jumbotron">
-    <h1>Jumbotron</h1>
-    <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <p><a class="btn btn-primary btn-lg">Learn more</a></p>
-</div>
+@{await Html.RenderPartialAsync("Graph3", "Home");}
+
