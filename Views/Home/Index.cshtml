@@ -1,6 +1,17 @@
-﻿@{
-    ViewData["Title"] = "Home Page"; //This is what displays in the tab on the webpage (Home Page- Data_Dashboard)
+﻿@model Data_Dashboard.Views.View_Model.Index
+
+@foreach (var somedata in Model.TychoLevel2)
+
+{
+<p>@somedata.disease</p>
+
 }
+
+
+
+
+
+
 
 @{await Html.RenderPartialAsync("Graph1");}
 

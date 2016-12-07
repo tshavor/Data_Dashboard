@@ -7,6 +7,7 @@ using Data_Dashboard.Data;
 using Data_Dashboard.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using Data_Dashboard.Views.View_Model;
 
 namespace Data_Dashboard.Controllers
 {
@@ -21,8 +22,11 @@ namespace Data_Dashboard.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            Index model = new Index();
+
             var data = await context.TychoLevel2.Take(10).ToListAsync();
-            return View();
+            model.TychoLevel2 = data;
+            return View(model);
         }
 
         public async Task<IActionResult> Graph1()
