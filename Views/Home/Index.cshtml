@@ -1,23 +1,34 @@
 ﻿@*this is where the data are being injected into the DOM at this point!*@
-
+@*line 3 declares what view model we want to use for this view*@
 @model Data_Dashboard.Views.View_Model.Index
 
-@foreach (var somedata in Model.TychoLevel2)
+@*1st dataset being injected  into the DOM*@
+<div class="jumbotron">
+    @*"somedata" can be named anything- monkeybutt, etc.*@
+        @foreach (var somedata in Model.TychoLevel2)
+      {
+        <p>@somedata.disease</p>
+      }
+    </div>
 
-{
-<p>@somedata.disease</p>
+@*2nd dataset being injected  into the DOM*@
+<div class="jumbotron">
+    @*"somedata" can be named anything- monkeybutt, etc.*@
+    @foreach (var mydata in Model.TychoLevel2)
+    {
+        <p>@mydata.</p>
+    }
+</div>
 
-}
+    @*3rd dataset being injected  into the DOM*@
+<div class="jumbotron">
+    @foreach (var monkeybutt in Model.TychoLevel1)
+
+    {
+        <p>@monkeybutt.incidence_per_100000</p>
+    }
+    </div>
 
 
 
-
-
-
-
-@{await Html.RenderPartialAsync("Graph1");}
-
-@*@{await Html.RenderPartialAsync("Graph2", "Home");}
-
-@{await Html.RenderPartialAsync("Graph3", "Home");}*@
-
+    
