@@ -58,7 +58,7 @@ namespace Data_Dashboard.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Contact Information:";
 
             return View();
         }

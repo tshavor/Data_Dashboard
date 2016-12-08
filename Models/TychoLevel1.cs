@@ -7,9 +7,11 @@ namespace Data_Dashboard.Models
 {
     public class TychoLevel1
     {
-        public int ID { get; set; }
+        public int ID { get; set; } /*C:\Users\Thom\documents\visual studio 2015\Projects\Data_Dashboard\src\Data_Dashboard\Models\TychoLevel1.cs*/
 
-        public string epi_week { get; set; }
+        public string year {get; set; }
+
+        public string week { get; set; }
 
         public string state { get; set; }
 
