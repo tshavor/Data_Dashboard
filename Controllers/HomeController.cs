@@ -38,6 +38,7 @@ namespace Data_Dashboard.Controllers
             
         }
        
+        //this method queries the data from TychoLevel2 for Chart #1//
         public List<TychoLevel2> GetTychoLevel2ChartData([FromBody]TychoLevel2 data) {
 
             List<TychoLevel2> QueryResults = context.TychoLevel2.Where(tl => tl.year == data.year).ToList();
@@ -45,25 +46,42 @@ namespace Data_Dashboard.Controllers
             QueryResults = QueryResults.Where(s => s.state == data.state).ToList();
             QueryResults = QueryResults.Where(et => et.event_type == "CASES").ToList();
             return QueryResults;
+
+            //I need to group these by WEEK for my graphs!
         }
 
 
-        //[HttpGet]
-        //public List<TychoLevel2> GetTychoLevel2()
-        //{
-            //context is the bridge between your code and the database!- via Jacob
-            //this returns a javascript array that includes every object in Tycho 1!
-            //return context.TychoLevel2.ToList();
 
-        //}
+        //this method queries the data from TychoLevel2 for Chart #2//
+        public List<TychoLevel2> GetTychoLevel2ChartDataDeath([FromBody]TychoLevel2 data)
+        {
 
-            //public async Task<IActionResult> Graph1()
-        //{
+            List<TychoLevel2> QueryResults = context.TychoLevel2.Where(tl => tl.year == data.year).ToList();
+            QueryResults = QueryResults.Where(d => d.disease == data.disease).ToList();
+            QueryResults = QueryResults.Where(s => s.state == data.state).ToList();
+            QueryResults = QueryResults.Where(et => et.event_type == "DEATHS").ToList();
+            return QueryResults;
+        }
+
+        //this method queries the data from TychoLevel1 for Chart #3//
+        public List<TychoLevel1> GetTychoLevel1ChartData([FromBody]TychoLevel1 data)
+        {
+
+            List<TychoLevel1> QueryResults = context.TychoLevel1.Where(tl => tl.year == data.year).ToList();
+            QueryResults = QueryResults.Where(d => d.disease == data.disease).ToList();
+            QueryResults = QueryResults.Where(s => s.state == data.state).ToList();
+            return QueryResults;
+        }
+
+       
+
+        public async Task<IActionResult> Graph1()
+        {
             ////TODO: Here is where I will get the data to load the first graph.
-            //var data =await context.TychoLevel2.Take(10).ToListAsync();
-            //Debug.WriteLine("This program has stopped running!");
-            //return View("Graph1");
-        //}
+            var data = await context.TychoLevel2.Take(10).ToListAsync();
+            Debug.WriteLine("This program has stopped running!");
+            return View("Graph1");
+        }
 
         public async Task<IActionResult> Graph2()
         {
