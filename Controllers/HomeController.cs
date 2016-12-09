@@ -26,29 +26,44 @@ namespace Data_Dashboard.Controllers
         {
             //this creates a instance of a viewmodel.
             Index model = new Index();
-            
-            var data = await context.TychoLevel2.Take(10).ToListAsync();
-            model.TychoLevel2 = data;
-            var TychoLevel1data= await context.TychoLevel1.Take(10).ToListAsync();
-            model.TychoLevel1 = TychoLevel1data;
-            return View(model);
+            return View();
         }
+
         [HttpGet]
         public List<TychoLevel1> GetTychoLevel1()
         {
             //context is the bridge between your code and the database!- via Jacob
+            //this returns a javascript array that includes every object in Tycho 1!
             return context.TychoLevel1.ToList();
+            
+        }
+       
+        public List<TychoLevel2> GetTychoLevel2ChartData([FromBody]TychoLevel2 data) {
 
-
+            List<TychoLevel2> QueryResults = context.TychoLevel2.Where(tl => tl.year == data.year).ToList();
+            QueryResults = QueryResults.Where(d => d.disease == data.disease).ToList();
+            QueryResults = QueryResults.Where(s => s.state == data.state).ToList();
+            QueryResults = QueryResults.Where(et => et.event_type == "CASES").ToList();
+            return QueryResults;
         }
 
-        public async Task<IActionResult> Graph1()
-        {
+
+        //[HttpGet]
+        //public List<TychoLevel2> GetTychoLevel2()
+        //{
+            //context is the bridge between your code and the database!- via Jacob
+            //this returns a javascript array that includes every object in Tycho 1!
+            //return context.TychoLevel2.ToList();
+
+        //}
+
+            //public async Task<IActionResult> Graph1()
+        //{
             ////TODO: Here is where I will get the data to load the first graph.
-            var data =await context.TychoLevel2.Take(10).ToListAsync();
-            Debug.WriteLine("This program has stopped running!");
-            return View("Graph1");
-        }
+            //var data =await context.TychoLevel2.Take(10).ToListAsync();
+            //Debug.WriteLine("This program has stopped running!");
+            //return View("Graph1");
+        //}
 
         public async Task<IActionResult> Graph2()
         {

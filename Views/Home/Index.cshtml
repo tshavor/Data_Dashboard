@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label for="year">YEAR</label>
                 <div class="col-md-8">
-                    <select id="year">
+                    <select id="year" class="selectedYear1">
                         <option value="1888">1888</option>
                         <option value="1889">1889</option>
                         <option value="1890">1890</option>
@@ -36,8 +36,8 @@
                         <option value="1908">1908</option>
                         <option value="1909">1909</option>
                         <option value="1910">1910</option>
-                        <option value="1911"> 1911</option>
-                        <option value="1912"> 1912</option>
+                        <option value="1911">1911</option>
+                        <option value="1912">1912</option>
                         <option value="1913">1913</option>
                         <option value="1914">1914</option>
                         <option value="1915">1915</option>
@@ -60,7 +60,7 @@
             <div class="form-group">
                 <label for="disease">DISEASE</label>
                 <div class="col-md-8">
-                    <select id="cases">
+                    <select id="cases" class="selectedDisease1">
                         <option value="VARICELLA">VARICELLA</option>
                         <option value="DIPHTHERIA">DIPHTHERIA</option>
                         <option value="INFLUENZA">INFLUENZA</option>
@@ -75,105 +75,321 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="state">STATE</label>
-                <div class="col-md-8">
-                    <select id="cases">
-                        <option value="TN">TN</option>
-                        <option value="NY">NY</option>
-                        <option value="IL">IL</option>
-                        <option value="PA">PA</option>
-                        <option value="MA">MA</option>
-                        <option value="OH">OH</option>
-                        <option value="CA">CA</option>
-                        <option value="NJ">NJ</option>
-                        <option value="MI">MI</option>
-                        <option value="MD">MD</option>
-                        <option value="MO">MO</option>
-                        <option value="WI">WI</option>
-                        <option value="MN">MN</option>
-                        <option value="LA">M</option>
-                        <option value="IN">IN</option>
-                        <option value="DC">DC</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+        <label for="state">STATE</label>
+        <div class="col-md-8">
+            <select id="cases" class="selectedState1">
+                <option value="TN">TN</option>
+                <option value="NY">NY</option>
+                <option value="IL">IL</option>
+                <option value="PA">PA</option>
+                <option value="MA">MA</option>
+                <option value="OH">OH</option>
+                <option value="CA">CA</option>
+                <option value="NJ">NJ</option>
+                <option value="MI">MI</option>
+                <option value="MD">MD</option>
+                <option value="MO">MO</option>
+                <option value="WI">WI</option>
+                <option value="MN">MN</option>
+                <option value="LA">M</option>
+                <option value="IN">IN</option>
+                <option value="DC">DC</option>
+                </select>
+            </div>
                 </div>
 
             
             @*trying some new bootstrap buttons here....................................*@
-            <div class="btn-group">
-                <a href="#" class="btn btn-info">Year</a>
-                <a href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="1888">1888</a></li>
-                    <li><a href="1889">1889</a></li>
-                    <li><a href="1890">1890</a></li>
-                    <li><a href="1891">1891</a></li>
-                    <li><a href="1892">1892</a></li>
-                    <li><a href="1893">1893</a></li>
-                    <li><a href="1894">1894</a></li>
-                    <li><a href="1895">1895</a></li>
-                    <li><a href="1896">1896</a></li>
+
+
+            @*<div class="btn-group">
+                <a class="btn btn-info">Year</a>
+                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+                <ul class="dropdown-menu selectedYear1">
+                    <li value="1888">1888</li>
+                    <li value="1889">1889</li>
+                    <li value="1890">1890</li>
+                    <li value="1891">1891</li>
+                    <li value="1892">1892</li>
+                    <li value="1893">1893</li>
+                    <li value="1894">1894</li>
+                    <li value="1895">1895</li>
+                    <li value="1896">1896</li>
+                    <li value="1897">1897</li>
+                    <li value="1898">1898</li>
+                    <li value="1899">1899</li>
+                    <li value="1900">1900</li>
+                    <li value="1901">1901</li>
+                    <li value="1902">1902</li>
+                    <li value="1903">1903</li>
+                    <li value="1904">1904</li>
+                    <li value="1905">1905</li>
+                    <li value="1906">1906</li>
+                    <li value="1907">1907</li>
+                    <li value="1908">1908</li>
+                    <li value="1909">1909</li>
+                    <li value="1910">1910</li>
+                    <li value="1911">1911</li>
+                    <li value="1912">1912</li>
+                    <li value="1913">1913</li>
+                    <li value="1914">1914</li>
+                    <li value="1915">1915</li>
+                    <li value="1916">1916</li>
+                    <li value="1917">1917</li>
+                    <li value="1918">1918</li>
+                    <li value="1919">1919</li>
+                    <li value="1920">1920</li>
+                    <li value="1921">1921</li>
+                    <li value="1922">1922</li>
+                    <li value="1923">1923</li>
+                    <li value="1924">1924</li>
+                    <li value="1925">1925</li>
+                    <li value="1926">1926</li>
+                    <li value="1927">1927</li>
                     </ul>
-            </div>
-            <div class="btn-group">
-                <a href="#" class="btn btn-info">Disease</a>
-                <a href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+            </div>*@
+            @*<div class="btn-group">
+                <a class="btn btn-info">Disease</a>
+                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="VARICELLA">VARICELLA</a></li>
-                    <li><a href="DIPHTHERIA">DIPHTHERIA</a></li>
-                    <li><a href="INFLUENZA">INFLUENZA</a></li>
+                    <li value="VARICELLA">VARICELLA</li>
+                    <li value="DIPHTHERIA">DIPHTHERIA</li>
+                    <li value="INFLUENZA">INFLUENZA</li>
+                    <li value="MENINGITIS">MENINGITIS</li>
+                    <li value="MUMPS">MUMPS</li>
+                    <li value="PNEUMONIA">PNEUMONIA</li>
+                    <li value="SCARLET FEVER">SCARLET FEVER</li>
+                    <li value="TUBERCULOSIS">TUBERCULOSIS</li>
+                    <li value="TYPHOID FEVER">TYPHOID FEVER</li>
+                    <li value="PERTUSSIS">PERTUSSIS</li>
                 </ul>
             </div>
 
             <div class="btn-group">
-                <a href="#" class="btn btn-info">State</a>
-                <a href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+                <a class="btn btn-info">State</a>
+                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="TN">TN</a></li>
-                    <li><a href="NY">NY</a></li>
-                    <li><a href="IL">IL</a></li>
-                </ul>
-            </div>
+                    <li value="TN">TN</li>
+                    <li value="NY">NY</li>
+                    <li value="IL">IL</li>
+                    <li value="PA">PA</li>
+                    <li value="MA">MA</li>
+                    <li value="OH">OH</li>
+                    <li value="CA">CA</li>
+                    <li value="NJ">NJ</li>
+                    <li value="MI">MI</li>
+                    <li value="MO">MO</li>
+                    <li value="WI">WI</li>
+                    <li value="IL">IL</li>
+                    <li value="MN">MN</li>
+                    <li value="LA">LA</li>
+                    <li value="IN">IN</li>
+                    <li value="DC">DC</li>
+                  </ul>
+            </div>*@
 
-            <a href="#" class="btn btn-primary">SUBMIT</a>
-            </div>
+            <a class="btn btn-primary submitButton1">SUBMIT</a>
           </form>
+        <div class="graph1"></div>
+        </div>
 
     @*"somedata" can be named anything- monkeybutt, etc.*@
-        @foreach (var somedata in Model.TychoLevel2)
-      {
-        <p>@somedata.disease</p>
-      }
-    </div>
+        
+ 
 
 @*2nd dataset being injected  into the DOM///////////////////////////////////////////////*@
 <div class="jumbotron">
     @*put form fields, buttons here...*@
+    <form class="dropdownGraph2">
+        <div class="form-horizontal">
+            <div class="btn-group">
+                <a class="btn btn-info">Year</a>
+                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li value="1888">1888</li>
+                    <li value="1889">1889</li>
+                    <li value="1890">1890</li>
+                    <li value="1891">1891</li>
+                    <li value="1892">1892</li>
+                    <li value="1893">1893</li>
+                    <li value="1894">1894</li>
+                    <li value="1895">1895</li>
+                    <li value="1896">1896</li>
+                    <li value="1897">1897</li>
+                    <li value="1898">1898</li>
+                    <li value="1899">1899</li>
+                    <li value="1900">1900</li>
+                    <li value="1901">1901</li>
+                    <li value="1902">1902</li>
+                    <li value="1903">1903</li>
+                    <li value="1904">1904</li>
+                    <li value="1905">1905</li>
+                    <li value="1906">1906</li>
+                    <li value="1907">1907</li>
+                    <li value="1908">1908</li>
+                    <li value="1909">1909</li>
+                    <li value="1910">1910</li>
+                    <li value="1911">1911</li>
+                    <li value="1912">1912</li>
+                    <li value="1913">1913</li>
+                    <li value="1914">1914</li>
+                    <li value="1915">1915</li>
+                    <li value="1916">1916</li>
+                    <li value="1917">1917</li>
+                    <li value="1918">1918</li>
+                    <li value="1919">1919</li>
+                    <li value="1920">1920</li>
+                    <li value="1921">1921</li>
+                    <li value="1922">1922</li>
+                    <li value="1923">1923</li>
+                    <li value="1924">1924</li>
+                    <li value="1925">1925</li>
+                    <li value="1926">1926</li>
+                    <li value="1927">1927</li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <a class="btn btn-info">Disease</a>
+                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li value="VARICELLA">VARICELLA</li>
+                    <li value="DIPHTHERIA">DIPHTHERIA</li>
+                    <li value="INFLUENZA">INFLUENZA</li>
+                    <li value="MENINGITIS">MENINGITIS</li>
+                    <li value="MUMPS">MUMPS</li>
+                    <li value="PNEUMONIA">PNEUMONIA</li>
+                    <li value="SCARLET FEVER">SCARLET FEVER</li>
+                    <li value="TUBERCULOSIS">TUBERCULOSIS</li>
+                    <li value="TYPHOID FEVER">TYPHOID FEVER</li>
+                    <li value="PERTUSSIS">PERTUSSIS</li>
+                </ul>
+            </div>
 
+            <div class="btn-group">
+                <a class="btn btn-info">State</a>
+                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li value="TN">TN</li>
+                    <li value="NY">NY</li>
+                    <li value="IL">IL</li>
+                    <li value="PA">PA</li>
+                    <li value="MA">MA</li>
+                    <li value="OH">OH</li>
+                    <li value="CA">CA</li>
+                    <li value="NJ">NJ</li>
+                    <li value="MI">MI</li>
+                    <li value="MO">MO</li>
+                    <li value="WI">WI</li>
+                    <li value="IL">IL</li>
+                    <li value="MN">MN</li>
+                    <li value="LA">LA</li>
+                    <li value="IN">IN</li>
+                    <li value="DC">DC</li>
+                </ul>
+            </div>
 
-
-
-    @*"somedata" can be named anything- monkeybutt, etc.*@
-    @foreach (var mydata in Model.TychoLevel2)
-    {
-        <p>@mydata.loc_type</p>
-    }
-</div>
-
-    @*3rd dataset being injected  into the DOM///////////////////////////////////////////*@
-<div class="jumbotron">
-    @*put form fields, buttons here...*@
-
-
-
-
-    @foreach (var monkeybutt in Model.TychoLevel1)
-
-    {
-        <p>@monkeybutt.incidence_per_100000</p>
-    }
+            <a class="btn btn-primary submitButton1">SUBMIT</a>
+        </div>
+        </form>
+    <div class="graph2"></div>
     </div>
+
+        @*3rd dataset being injected  into the DOM///////////////////////////////////////////*@
+    <div class="jumbotron">
+        <form class="dropdownGraph3">
+            <div class="form-horizontal">
+                <div class="btn-group">
+                    <a class="btn btn-info">Year</a>
+                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li value="1888">1888</li>
+                        <li value="1889">1889</li>
+                        <li value="1890">1890</li>
+                        <li value="1891">1891</li>
+                        <li value="1892">1892</li>
+                        <li value="1893">1893</li>
+                        <li value="1894">1894</li>
+                        <li value="1895">1895</li>
+                        <li value="1896">1896</li>
+                        <li value="1897">1897</li>
+                        <li value="1898">1898</li>
+                        <li value="1899">1899</li>
+                        <li value="1900">1900</li>
+                        <li value="1901">1901</li>
+                        <li value="1902">1902</li>
+                        <li value="1903">1903</li>
+                        <li value="1904">1904</li>
+                        <li value="1905">1905</li>
+                        <li value="1906">1906</li>
+                        <li value="1907">1907</li>
+                        <li value="1908">1908</li>
+                        <li value="1909">1909</li>
+                        <li value="1910">1910</li>
+                        <li value="1911">1911</li>
+                        <li value="1912">1912</li>
+                        <li value="1913">1913</li>
+                        <li value="1914">1914</li>
+                        <li value="1915">1915</li>
+                        <li value="1916">1916</li>
+                        <li value="1917">1917</li>
+                        <li value="1918">1918</li>
+                        <li value="1919">1919</li>
+                        <li value="1920">1920</li>
+                        <li value="1921">1921</li>
+                        <li value="1922">1922</li>
+                        <li value="1923">1923</li>
+                        <li value="1924">1924</li>
+                        <li value="1925">1925</li>
+                        <li value="1926">1926</li>
+                        <li value="1927">1927</li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <a class="btn btn-info">Disease</a>
+                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li value="VARICELLA">VARICELLA</li>
+                        <li value="DIPHTHERIA">DIPHTHERIA</li>
+                        <li value="INFLUENZA">INFLUENZA</li>
+                        <li value="MENINGITIS">MENINGITIS</li>
+                        <li value="MUMPS">MUMPS</li>
+                        <li value="PNEUMONIA">PNEUMONIA</li>
+                        <li value="SCARLET FEVER">SCARLET FEVER</li>
+                        <li value="TUBERCULOSIS">TUBERCULOSIS</li>
+                        <li value="TYPHOID FEVER">TYPHOID FEVER</li>
+                        <li value="PERTUSSIS">PERTUSSIS</li>
+                    </ul>
+                </div>
+
+                <div class="btn-group">
+                    <a class="btn btn-info">State</a>
+                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li value="TN">TN</li>
+                        <li value="NY">NY</li>
+                        <li value="IL">IL</li>
+                        <li value="PA">PA</li>
+                        <li value="MA">MA</li>
+                        <li value="OH">OH</li>
+                        <li value="CA">CA</li>
+                        <li value="NJ">NJ</li>
+                        <li value="MI">MI</li>
+                        <li value="MO">MO</li>
+                        <li value="WI">WI</li>
+                        <li value="IL">IL</li>
+                        <li value="MN">MN</li>
+                        <li value="LA">LA</li>
+                        <li value="IN">IN</li>
+                        <li value="DC">DC</li>
+
+                        </ul>
+                     </div>
+                    <a class="btn btn-primary submitButton1">SUBMIT</a>
+                </div>
+          </form>
+        <div class="graph3"></div>
+        </div>
 
 
 
