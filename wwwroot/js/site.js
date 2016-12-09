@@ -18,4 +18,8 @@ getTychoLevel1()
 
 })
 
-
+//bootstrap button experiment to display selected choice- NOT WORKING!/////////////////////////
+$(".btn btn-info dropdown-toggle").click(function () {
+    $(this).parents(".btn-group").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+    $(this).parents(".btn-group").find('.btn').val($(this).data('value'));
+});
