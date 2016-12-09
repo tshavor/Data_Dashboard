@@ -20,13 +20,26 @@ namespace Data_Dashboard.Controllers
         {
             context = ctx;
         }
+        //this defines the view.  When runs, it looks for the index file within the Home folder.  It then looks for a 
+        //    a file with a method name called Index".
         public async Task<IActionResult> Index()
         {
+            //this creates a instance of a viewmodel.
             Index model = new Index();
-
+            
             var data = await context.TychoLevel2.Take(10).ToListAsync();
             model.TychoLevel2 = data;
+            var TychoLevel1data= await context.TychoLevel1.Take(10).ToListAsync();
+            model.TychoLevel1 = TychoLevel1data;
             return View(model);
+        }
+        [HttpGet]
+        public List<TychoLevel1> GetTychoLevel1()
+        {
+            //context is the bridge between your code and the database!- via Jacob
+            return context.TychoLevel1.ToList();
+
+
         }
 
         public async Task<IActionResult> Graph1()
@@ -58,7 +71,7 @@ namespace Data_Dashboard.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Contact Information:";
 
             return View();
         }
