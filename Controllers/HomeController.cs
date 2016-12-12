@@ -36,9 +36,10 @@ namespace Data_Dashboard.Controllers
             //this returns a javascript array that includes every object in Tycho 1!
             return context.TychoLevel1.ToList();
             
+            
         }
        
-        //this method queries the data from TychoLevel2 for Chart #1//
+        //this method queries the data from TychoLevel2 for Chart #1//works!
         public List<TychoLevel2> GetTychoLevel2ChartData([FromBody]TychoLevel2 data) {
 
             List<TychoLevel2> QueryResults = context.TychoLevel2.Where(tl => tl.year == data.year).ToList();
@@ -53,8 +54,7 @@ namespace Data_Dashboard.Controllers
 
 
         //this method queries the data from TychoLevel2 for Chart #2//
-        public List<TychoLevel2> GetTychoLevel2ChartDataDeath([FromBody]TychoLevel2 data)
-        {
+        public List<TychoLevel2> GetTychoLevel2ChartDataDeath([FromBody]TychoLevel2 data) {
 
             List<TychoLevel2> QueryResults = context.TychoLevel2.Where(tl => tl.year == data.year).ToList();
             QueryResults = QueryResults.Where(d => d.disease == data.disease).ToList();
@@ -78,9 +78,8 @@ namespace Data_Dashboard.Controllers
         public async Task<IActionResult> Graph1()
         {
             ////TODO: Here is where I will get the data to load the first graph.
-            var data = await context.TychoLevel2.Take(10).ToListAsync();
-            Debug.WriteLine("This program has stopped running!");
-            return View("Graph1");
+            //var data = await context.TychoLevel2.Take(10).ToListAsync();
+           return View("Graph1");
         }
 
         public async Task<IActionResult> Graph2()
