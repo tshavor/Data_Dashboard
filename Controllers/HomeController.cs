@@ -30,40 +30,24 @@ namespace Data_Dashboard.Controllers
             return View();
         }
 
-        [HttpGet]
-        public List<TychoLevel1> GetTychoLevel1()
-        {
-            //context is the bridge between your code and the database!- via Jacob
-            //this returns a javascript array that includes every object in Tycho 1!
-            return context.TychoLevel1.ToList();
+        //[HttpGet]
+        //public List<TychoLevel1> GetTychoLevel1()
+        //{
+        //    //context is the bridge between your code and the database!- via Jacob
+        //    //this returns a javascript array that includes every object in Tycho 1!
+        //    return context.TychoLevel1.ToList();
             
             
-        }
+        //}
 
         //this method queries the data from TychoLevel2 for Chart #1//works!
         [HttpPost]
         [Produces("application/json")]
         public JsonResult GetTychoLevel2ChartData([FromBody]TychoLevel2 data)
         {
-
-            //public List<TychoLevel2> GetTychoLevel2ChartData([FromBody]TychoLevel2 data)
-            //{
-
-            //List<TychoLevel2> QueryResults = context.TychoLevel2.Where(tl => tl.year == data.year).ToList();
-            //QueryResults = QueryResults.Where(d => d.disease == data.disease).ToList();
-            //QueryResults = QueryResults.Where(s => s.state == data.state).ToList();
-            //QueryResults = QueryResults.Where(et => et.event_type == "CASES").ToList();
-
-            //QueryResults.GroupBy(wk => wk.week);
-            ////QueryResults = QueryResults.SelectMany(d => d.disease, wk => wk.week, n => n.number);
-            //return QueryResults;
-
-            ////TODO: replace hard coded year and state with user select version!
-
             string  year = data.year;
             string disease = data.disease;
             string state = data.state;
-
 
             var GetTychoLevel2ChartData = (from t in context.TychoLevel2
                                            where t.year == year
@@ -78,44 +62,65 @@ namespace Data_Dashboard.Controllers
                                                Week = ww.Select(w => w.week),
                                            });
 
-            //number = ww.Select(n => n.number)
-
-            //}).ToList();
-
-            //should be able to order in the original link but would f
             var orderedData = GetTychoLevel2ChartData.OrderBy(w => w.Week);
-
-
             return Json(GetTychoLevel2ChartData);
-           
-        }
+           }
 
-        //now, I need to take the value of week and numberperweek and figure out how to put them in a d3 graph
-
-
-        //this method queries the data from TychoLevel2 for Chart #2//works!
-        public List<TychoLevel2> GetTychoLevel2ChartDataDeath([FromBody]TychoLevel2 data) {
-
-            List<TychoLevel2> QueryResults = context.TychoLevel2.Where(tl => tl.year == data.year).ToList();
-            QueryResults = QueryResults.Where(d => d.disease == data.disease).ToList();
-            QueryResults = QueryResults.Where(s => s.state == data.state).ToList();
-            QueryResults = QueryResults.Where(et => et.event_type == "DEATHS").ToList();
-            return QueryResults;
-        }
-
-        //this method queries the data from TychoLevel1 for Chart #3//
-        public List<TychoLevel1> GetTychoLevel1ChartData([FromBody]TychoLevel1 data)
+        
+        [HttpPost]
+        [Produces("application/json")]
+        public JsonResult GetTychoLevel2ChartDataDeath([FromBody]TychoLevel2 data)
         {
+            string year = data.year;
+            string disease = data.disease;
+            string state = data.state;
 
-            List<TychoLevel1> QueryResults = context.TychoLevel1.Where(tl => tl.year == data.year).ToList();
-        QueryResults = QueryResults.Where(d => d.disease == data.disease).ToList();
-        QueryResults = QueryResults.Where(s => s.state == data.state).ToList();
-            return QueryResults;
+            var GetTychoLevel2ChartDataDeath = (from t in context.TychoLevel2
+                                           where t.year == year
+                                           && t.state == state
+                                           && t.disease == disease
+                                           && t.event_type == "DEATHS"
+                                           group t by t.week into ww
+                                           select new
+                                           {
+                                               Disease = ww.Select(d => d.disease),
+                                               NumberPerWeek = (ww.Select(n => n.number)).Sum(),
+                                               Week = ww.Select(w => w.week),
+                                           });
+
+            var orderedData = GetTychoLevel2ChartDataDeath.OrderBy(w => w.Week);
+            return Json(GetTychoLevel2ChartDataDeath);
         }
 
+        //this method queries the data from TychoLevel1 for Chart #3//works!
+        [HttpPost]
+        [Produces("application/json")]
+        public JsonResult GetTychoLevel1ChartData([FromBody]TychoLevel1 data)
+        {
+            string year = data.year;
+            string disease = data.disease;
+            string state = data.state;
 
+            var GetTychoLevel1ChartData = (from t in context.TychoLevel1
+                                           where t.year == year
+                                           && t.state == state
+                                           && t.disease == disease
+                                           group t by t.week into ww
+                                           select new
+                                          
+                                           {
+                                               Disease = ww.Select(d => d.disease),
+                                               ////TODO: FIX this formula below...////
+                                               //NumberPerWeek = (ww.Select(n => n.number)).Sum(),
+                                               Week = ww.Select(w => w.week),
+                                           });
 
-    public async Task<IActionResult> Graph1()
+            var orderedData = GetTychoLevel1ChartData.OrderBy(w => w.Week);
+            return Json(GetTychoLevel1ChartData);
+        }
+        
+        //-------------------------------------------------------------------------
+                public async Task<IActionResult> Graph1()
         {
             ////TODO: Here is where I will get the data to load the first graph.
             //var data = await context.TychoLevel2.Take(10).ToListAsync();
