@@ -15,7 +15,6 @@ namespace Data_Dashboard.Models
         public string state { get; set; }
 
         public string loc { get; set; }
-
         public string loc_type  {get; set;}
 
         public string disease { get; set; }
@@ -23,11 +22,6 @@ namespace Data_Dashboard.Models
         public string event_type { get; set; }
 
         public int number { get; set; }
-
-
-
-
-
-
+        
     }
 }
