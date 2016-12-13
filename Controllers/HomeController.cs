@@ -63,8 +63,9 @@ namespace Data_Dashboard.Controllers
                                            });
 
             var orderedData = GetTychoLevel2ChartData.OrderBy(w => w.Week);
-            return Json(GetTychoLevel2ChartData);
-           }
+            return Json(GetTychoLevel2ChartData);  //this dataset resides in the browser in memory, because the call came from the browser originally!
+            
+        }
 
         
         [HttpPost]
