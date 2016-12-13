@@ -8,6 +8,7 @@ using Data_Dashboard.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Data_Dashboard.Views.View_Model;
+using System.Collections;
 
 namespace Data_Dashboard.Controllers
 {
@@ -38,22 +39,61 @@ namespace Data_Dashboard.Controllers
             
             
         }
-       
+
         //this method queries the data from TychoLevel2 for Chart #1//works!
-        public List<TychoLevel2> GetTychoLevel2ChartData([FromBody]TychoLevel2 data) {
+        [HttpPost]
+        [Produces("application/json")]
+        public JsonResult GetTychoLevel2ChartData([FromBody]TychoLevel2 data)
+        {
 
-            List<TychoLevel2> QueryResults = context.TychoLevel2.Where(tl => tl.year == data.year).ToList();
-            QueryResults = QueryResults.Where(d => d.disease == data.disease).ToList();
-            QueryResults = QueryResults.Where(s => s.state == data.state).ToList();
-            QueryResults = QueryResults.Where(et => et.event_type == "CASES").ToList();
-            return QueryResults;
+            //public List<TychoLevel2> GetTychoLevel2ChartData([FromBody]TychoLevel2 data)
+            //{
 
-            //I need to group these by WEEK for my graphs!
+            //List<TychoLevel2> QueryResults = context.TychoLevel2.Where(tl => tl.year == data.year).ToList();
+            //QueryResults = QueryResults.Where(d => d.disease == data.disease).ToList();
+            //QueryResults = QueryResults.Where(s => s.state == data.state).ToList();
+            //QueryResults = QueryResults.Where(et => et.event_type == "CASES").ToList();
+
+            //QueryResults.GroupBy(wk => wk.week);
+            ////QueryResults = QueryResults.SelectMany(d => d.disease, wk => wk.week, n => n.number);
+            //return QueryResults;
+
+            ////TODO: replace hard coded year and state with user select version!
+
+            string  year = data.year;
+            string disease = data.disease;
+            string state = data.state;
+
+
+            var GetTychoLevel2ChartData = (from t in context.TychoLevel2
+                                           where t.year == year
+                                           && t.state == state
+                                           && t.disease == disease
+                                           && t.event_type == "CASES"
+                                           group t by t.week into ww
+                                           select new
+                                           {
+                                               Disease = ww.Select(d => d.disease),
+                                               NumberPerWeek = (ww.Select(n => n.number)).Sum(),
+                                               Week = ww.Select(w => w.week),
+                                           });
+
+            //number = ww.Select(n => n.number)
+
+            //}).ToList();
+
+            //should be able to order in the original link but would f
+            var orderedData = GetTychoLevel2ChartData.OrderBy(w => w.Week);
+
+
+            return Json(GetTychoLevel2ChartData);
+           
         }
 
+        //now, I need to take the value of week and numberperweek and figure out how to put them in a d3 graph
 
 
-        //this method queries the data from TychoLevel2 for Chart #2//
+        //this method queries the data from TychoLevel2 for Chart #2//works!
         public List<TychoLevel2> GetTychoLevel2ChartDataDeath([FromBody]TychoLevel2 data) {
 
             List<TychoLevel2> QueryResults = context.TychoLevel2.Where(tl => tl.year == data.year).ToList();
@@ -68,14 +108,14 @@ namespace Data_Dashboard.Controllers
         {
 
             List<TychoLevel1> QueryResults = context.TychoLevel1.Where(tl => tl.year == data.year).ToList();
-            QueryResults = QueryResults.Where(d => d.disease == data.disease).ToList();
-            QueryResults = QueryResults.Where(s => s.state == data.state).ToList();
+        QueryResults = QueryResults.Where(d => d.disease == data.disease).ToList();
+        QueryResults = QueryResults.Where(s => s.state == data.state).ToList();
             return QueryResults;
         }
 
-       
 
-        public async Task<IActionResult> Graph1()
+
+    public async Task<IActionResult> Graph1()
         {
             ////TODO: Here is where I will get the data to load the first graph.
             //var data = await context.TychoLevel2.Take(10).ToListAsync();

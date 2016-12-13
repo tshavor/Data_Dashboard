@@ -11,7 +11,7 @@ namespace Data_Dashboard.Models
 
         public string year {get; set; }
 
-        public string week { get; set; }
+        public int week { get; set; }
 
         public string state { get; set; }
 

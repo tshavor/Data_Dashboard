@@ -10,7 +10,7 @@ namespace Data_Dashboard.Models
         public int ID { get; set; }
         public string year { get; set; }
 
-        public string week { get; set; }
+        public int week { get; set; }
 
         public string state { get; set; }
 
@@ -22,7 +22,7 @@ namespace Data_Dashboard.Models
 
         public string event_type { get; set; }
 
-        public string number { get; set; }
+        public int number { get; set; }
 
 
 
