@@ -1,4 +1,9 @@
-﻿//AJAX call info here...
+﻿//clears the indiv graphic on click event//
+function clearBox(graph) {
+    $("#graph").html("");
+}
+
+//AJAX call info here...
 function filteredTychoLevel2(y, d, s) {   //year, disease, state shorthand
     //console.log(y + d + s);
     return new Promise(function (resolve, reject) {
@@ -65,6 +70,9 @@ function filteredTychoLevel1(y, d, s) {   //year, disease, state shorthand
 //click event actions here..//////////////////////////////////////////////////////////////////////.
 
 $(".submitButton1").on("click", function () {
+    //enter a function to clear the graph here!
+    clearBox()
+    
     var year = $(".selectedYear1").val();
     var disease = $(".selectedDisease1").val();
     var state = $(".selectedState1").val();
