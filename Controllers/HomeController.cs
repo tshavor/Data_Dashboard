@@ -32,7 +32,8 @@ namespace Data_Dashboard.Controllers
         //this method queries the data from TychoLevel2 for Chart #1//works!
         [HttpPost]
         [Produces("application/json")]
-        public JsonResult GetTychoLevel2ChartData([FromBody]TychoLevel2 data)
+        //[Route("Home/GetTychoLevel2ChartData/{y}/{d}/{s}")]
+        public IActionResult GetTychoLevel2ChartData([FromBody] TychoLevel2 data)
         {
             string  year = data.year;
             string disease = data.disease;
@@ -46,7 +47,7 @@ namespace Data_Dashboard.Controllers
                                            group t by t.week into ww
                                            select new
                                            {
-                                               Disease = ww.Select(d => d.disease),
+                                               Disease = ww.Select(di => di.disease),
                                                NumberPerWeek = (ww.Select(n => n.number)).Sum(),
                                                Week = ww.Select(w => w.week),
                                            });
