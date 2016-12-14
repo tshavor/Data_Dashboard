@@ -12,13 +12,12 @@ using System.Collections;
 
 namespace Data_Dashboard.Controllers
 {
-    public class HomeController : Controller
+   public class HomeController : Controller
     {
-
         private Data_DashboardContext context;
-
         public HomeController(Data_DashboardContext ctx)
         {
+        //context is the bridge between your code and the database!- via Jacob
             context = ctx;
         }
         //this defines the view.  When runs, it looks for the index file within the Home folder.  It then looks for a 
@@ -29,16 +28,6 @@ namespace Data_Dashboard.Controllers
             Index model = new Index();
             return View();
         }
-
-        //[HttpGet]
-        //public List<TychoLevel1> GetTychoLevel1()
-        //{
-        //    //context is the bridge between your code and the database!- via Jacob
-        //    //this returns a javascript array that includes every object in Tycho 1!
-        //    return context.TychoLevel1.ToList();
-            
-            
-        //}
 
         //this method queries the data from TychoLevel2 for Chart #1//works!
         [HttpPost]
@@ -93,7 +82,7 @@ namespace Data_Dashboard.Controllers
             return Json(GetTychoLevel2ChartDataDeath);
         }
 
-        //this method queries the data from TychoLevel1 for Chart #3//works!
+        //this method queries the data from TychoLevel1 for Chart #3//
         [HttpPost]
         [Produces("application/json")]
         public JsonResult GetTychoLevel1ChartData([FromBody]TychoLevel1 data)
@@ -121,11 +110,10 @@ namespace Data_Dashboard.Controllers
         }
         
         //-------------------------------------------------------------------------
-                public async Task<IActionResult> Graph1()
+        public async Task<IActionResult> Graph1()
         {
             ////TODO: Here is where I will get the data to load the first graph.
-            //var data = await context.TychoLevel2.Take(10).ToListAsync();
-           return View("Graph1");
+            return View("Graph1");
         }
 
         public async Task<IActionResult> Graph2()

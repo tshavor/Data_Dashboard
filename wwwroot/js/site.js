@@ -13,11 +13,11 @@ function filteredTychoLevel2(y, d, s) {   //year, disease, state shorthand
             })
 
         }).done(function (data) {
-            resolve(data)
+            resolve(data);
         }).error(function (e) {    //"e" is my error message.
-            reject(e)
-        })
-    })
+            reject(e);
+        });
+    });
 }
 
 function filteredTychoLevel2death(y, d, s) {   //year, disease, state shorthand
@@ -34,18 +34,18 @@ function filteredTychoLevel2death(y, d, s) {   //year, disease, state shorthand
             })
 
         }).done(function (data) {
-            resolve(data)
+            resolve(data);
         }).error(function (e) {    //"e" is my error message.
-            reject(e)
-        })
-    })
+            reject(e);
+        });
+    });
 }
 
 function filteredTychoLevel1(y, d, s) {   //year, disease, state shorthand
     //console.log(y + d + s);
     return new Promise(function (resolve, reject) {
         $.ajax({
-            url: "/Home/GetTychoLevel1ChartData",     
+            url: "/Home/GetTychoLevel1ChartData",
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
@@ -55,48 +55,48 @@ function filteredTychoLevel1(y, d, s) {   //year, disease, state shorthand
             })
 
         }).done(function (data) {
-            resolve(data)
+            resolve(data);
         }).error(function (e) {    //"e" is my error message.
-            reject(e)
-        })
-    })
+            reject(e);
+        });
+    });
 }
 
 //click event actions here..//////////////////////////////////////////////////////////////////////.
 
-  $(".submitButton1").on("click", function () {
-      var year = $(".selectedYear1").val()
-      var disease = $(".selectedDisease1").val()
-      var state = $(".selectedState1").val()
-      filteredTychoLevel2(year, disease, state)
-          .then(function (returndata) {
-              console.log(returndata)
+$(".submitButton1").on("click", function () {
+    var year = $(".selectedYear1").val();
+    var disease = $(".selectedDisease1").val();
+    var state = $(".selectedState1").val();
+    filteredTychoLevel2(year, disease, state)
+        .then(function (returndata) {
+            console.log(returndata);
 
 
-        })  
-      })
+        });
+});
 
-  $(".submitButton2").on("click", function () {
-      var year = $(".selectedYear2").val()
-      var disease = $(".selectedDisease2").val()
-      var state = $(".selectedState2").val()
-      filteredTychoLevel2death(year, disease, state)
-          .then(function (returndata) {
-              console.log(returndata)
+$(".submitButton2").on("click", function () {
+    var year = $(".selectedYear2").val();
+    var disease = $(".selectedDisease2").val();
+    var state = $(".selectedState2").val();
+    filteredTychoLevel2death(year, disease, state)
+        .then(function (returndata) {
+            console.log(returndata);
 
-          })
-        })  
+        });
+});
 
-  $(".submitButton3").on("click", function () {
-      var year = $(".selectedYear3").val()
-      var disease = $(".selectedDisease3").val()
-      var state = $(".selectedState3").val()
-      filteredTychoLevel1(year, disease, state)
-          .then(function (returndata) {
-              console.log(returndata)
+$(".submitButton3").on("click", function () {
+    var year = $(".selectedYear3").val();
+    var disease = $(".selectedDisease3").val();
+    var state = $(".selectedState3").val();
+    filteredTychoLevel1(year, disease, state)
+        .then(function (returndata) {
+            console.log(returndata);
 
-          })
-  })
+        });
+});
 
 /////////////////////////D3 GRAPHICS CODE FOLLOWS://////////////////////////////
 
@@ -127,12 +127,12 @@ function filteredTychoLevel1(y, d, s) {   //year, disease, state shorthand
           .orient("left")
       //.tickFormat(formatPercent);
 
-      var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function (d) {
-            return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
-        })
+      var tip = d3.tip();
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function (d) {
+          return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
+      });
 
       var svg = d3.select("graph1").append("svg")  //replaced body with "graph1"//
           .attr("width", width + margin.left + margin.right)
@@ -142,8 +142,8 @@ function filteredTychoLevel1(y, d, s) {   //year, disease, state shorthand
 
       svg.call(tip);
 
-      //var url= put url for data here!
-      //d3.json("url", type, function (error, data) {
+      var url= Home/GetTychoLevel2ChartData;  //created new variable
+      d3.json("url", type, function (error, data) {  //
           x.domain(data.map(function (d) { return d.week; }));  //replaced letter with week//
           y.domain([0, d3.max(data, function (d) { return d.numberperweek; })]);  //replaced frequency with numberperweek//
 
@@ -178,5 +178,5 @@ function filteredTychoLevel1(y, d, s) {   //year, disease, state shorthand
           function type(d) {
               d.numberperweek = +d.numberperweek;  //replaced frequency with numberperweek//
               return d;
-          }[]
-      
+          } [];
+      })
