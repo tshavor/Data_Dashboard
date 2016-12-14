@@ -1,4 +1,9 @@
-﻿//AJAX call info here...
+﻿//clears the indiv graphic on click event//
+function clearBox(graph) {
+    $("#graph").html("");
+}
+
+//AJAX call info here...
 function filteredTychoLevel2(y, d, s) {   //year, disease, state shorthand
     //console.log(y + d + s);
     return new Promise(function (resolve, reject) {
@@ -65,6 +70,9 @@ function filteredTychoLevel1(y, d, s) {   //year, disease, state shorthand
 //click event actions here..//////////////////////////////////////////////////////////////////////.
 
 $(".submitButton1").on("click", function () {
+    //enter a function to clear the graph here!//
+    clearBox()
+    
     var year = $(".selectedYear1").val();
     var disease = $(".selectedDisease1").val();
     var state = $(".selectedState1").val();
@@ -108,10 +116,7 @@ function createGraph1(monkeybutt) {
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    //var formatPercent = d3.format(".0%");
-
-
-    var x = d3.scale.ordinal()
+     var x = d3.scale.ordinal()
     .rangeRoundBands([0, width], .1);
 
     var y = d3.scale.linear()
@@ -130,7 +135,7 @@ function createGraph1(monkeybutt) {
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function (d) {
-        return "<strong>Number per week:</strong> <span style='color:red'>" + d.numberperweekfrequency + "</span>";
+        return "<strong>Number per WSeek:</strong> <span style='color:red'>" + d.numberPerWeek + "</span>";
     });
 
     var svg = d3.select(".graph1").append("svg")  //replaced body with "graph1"//
@@ -172,10 +177,9 @@ function createGraph1(monkeybutt) {
         .attr("width", x.rangeBand())
             .attr("y", function (d) { return y(parseInt(d.numberPerWeek)); }) //replaced frequency with numberperweek//
             .attr("height", function (d) { return height - y(parseInt(d.numberPerWeek)); })  //replaced frequency with numberperweek//
-                .on('mouseover', tip.show
+                .on('mouseover', tip.show)
                 .on('mouseout', tip.hide)
 
-            );
         debugger;
         function type(d) {
             d.numberPerWeek = +d.numberPerWeek;  //replaced frequency with numberperweek//
