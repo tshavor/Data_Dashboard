@@ -83,7 +83,7 @@ namespace Data_Dashboard.Controllers
             return Json(GetTychoLevel2ChartDataDeath);
         }
 
-        //this method queries the data from TychoLevel1 for Chart #3//
+        //this method queries the data from TychoLevel1 for Chart #3/////////////
         [HttpPost]
         [Produces("application/json")]
         public JsonResult GetTychoLevel1ChartData([FromBody]TychoLevel1 data)
