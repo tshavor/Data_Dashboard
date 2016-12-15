@@ -54,92 +54,46 @@ namespace Data_Dashboard.Controllers
 
             var orderedData = GetTychoLevel2ChartData.OrderBy(w => w.Week);
             return Json(GetTychoLevel2ChartData);  //this dataset resides in the browser in memory, because the call came from the browser originally!
-            
+
         }
 
-        
+        //this method queries the data from TychoLevel2 for Chart #2//re-writng for Graph #2
         [HttpPost]
         [Produces("application/json")]
-        public JsonResult GetTychoLevel2ChartDataDeath([FromBody]TychoLevel2 data)
+        //[Route("Home/GetTychoLevel2ChartData/{y}/{d}/{s}")]
+        public IActionResult GetTychoLevel2ChartDataDeath ([FromBody] TychoLevel2 data)
         {
             string year = data.year;
             string disease = data.disease;
             string state = data.state;
 
             var GetTychoLevel2ChartDataDeath = (from t in context.TychoLevel2
-                                           where t.year == year
-                                           && t.state == state
+                                           where t.state == state
                                            && t.disease == disease
                                            && t.event_type == "DEATHS"
-                                           group t by t.week into ww
-                                           select new
+                                                group t by t.year into ww
+                                                select new
                                            {
-                                               Disease = ww.Select(d => d.disease),
-                                               NumberPerWeek = (ww.Select(n => n.number)).Sum(),
-                                               Week = ww.Select(w => w.week),
-                                           });
+                                                    Disease = ww.Select(di => di.disease),
+                                                    NumberPerYear = (ww.Select(n => n.number)).Sum(),
+                                                    Year = ww.Select(t => t.year),
 
-            var orderedData = GetTychoLevel2ChartDataDeath.OrderBy(w => w.Week);
-            return Json(GetTychoLevel2ChartDataDeath);
+                                                    
+                                                });
+
+            var orderedData = GetTychoLevel2ChartDataDeath.OrderBy(y => y.Year);
+            return Json(orderedData);  //Object RETURNED!
         }
 
-        //this method queries the data from TychoLevel1 for Chart #3/////////////
-        [HttpPost]
-        [Produces("application/json")]
-        public JsonResult GetTychoLevel1ChartData([FromBody]TychoLevel1 data)
-        {
-            string year = data.year;
-            string disease = data.disease;
-            string state = data.state;
-
-            var GetTychoLevel1ChartData = (from t in context.TychoLevel1
-                                           where t.year == year
-                                           && t.state == state
-                                           && t.disease == disease
-                                           group t by t.week into ww
-                                           select new
-                                          
-                                           {
-                                               Disease = ww.Select(d => d.disease),
-                                               ////TODO: FIX this formula below...////
-                                               //NumberPerWeek = (ww.Select(n => n.number)).Sum(),
-                                               Week = ww.Select(w => w.week),
-                                           });
-
-            var orderedData = GetTychoLevel1ChartData.OrderBy(w => w.Week);
-            return Json(GetTychoLevel1ChartData);
-        }
         
-        //-------------------------------------------------------------------------
-        public async Task<IActionResult> Graph1()
-        {
-            ////TODO: Here is where I will get the data to load the first graph.
-            return View("Graph1");
-        }
-
-        public async Task<IActionResult> Graph2()
-        {
-            ////TODO: Here is where I will get the data to load the first graph.
-            return View("Graph2");
-        }
-
-        public async Task<IActionResult> Graph3()
-        {
-            ////TODO: Here is where I will get the data to load the first graph.
-            return View("Graph3");
-        }
-
         public IActionResult About()
         {
-           // ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
         public IActionResult Contact()
         {
             ViewData["Message"] = "Contact Information:";
-
             return View();
         }
 
