@@ -46,26 +46,26 @@ function filteredTychoLevel2death(y, d, s) {   //year, disease, state shorthand
     });
 }
 
-function filteredTychoLevel1(y, d, s) {   //year, disease, state shorthand
-    //console.log(y + d + s);
-    return new Promise(function (resolve, reject) {
-        $.ajax({
-            url: "/Home/GetTychoLevel1ChartData",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({
-                year: y,
-                disease: d,
-                state: s
-            })
+//function filteredTychoLevel1(y, d, s) {   //year, disease, state shorthand
+//    //console.log(y + d + s);
+//    return new Promise(function (resolve, reject) {
+//        $.ajax({
+//            url: "/Home/GetTychoLevel1ChartData",
+//            method: "POST",
+//            contentType: "application/json",
+//            data: JSON.stringify({
+//                year: y,
+//                disease: d,
+//                state: s
+//            })
 
-        }).done(function (data) {
-            resolve(data);
-        }).error(function (e) {    //"e" is my error message.
-            reject(e);
-        });
-    });
-}
+//        }).done(function (data) {
+//            resolve(data);
+//        }).error(function (e) {    //"e" is my error message.
+//            reject(e);
+//        });
+//    });
+//}
 
 //click event actions here..//////////////////////////////////////////////////////////////////////.
 
@@ -81,18 +81,18 @@ $(".submitButton1").on("click", function () {
             createGraph1(returndata)
  
         });
-    //createGraph1(year, disease, state)
-});
+  });
 
 $(".submitButton2").on("click", function () {
-    var year = $(".selectedYear2").val();
+    clearBox()
+
     var disease = $(".selectedDisease2").val();
     var state = $(".selectedState2").val();
-    filteredTychoLevel2death(year, disease, state)
+    filteredTychoLevel2death(disease, state)
         .then(function (returndata) {
-            console.log(returndata);
 
-        });
+            createGraph2(returndata)
+       });
 });
 
 $(".submitButton3").on("click", function () {
@@ -101,7 +101,7 @@ $(".submitButton3").on("click", function () {
     var state = $(".selectedState3").val();
     filteredTychoLevel1(year, disease, state)
         .then(function (returndata) {
-            console.log(returndata);
+            //console.log(returndata);
 
         });
 });
@@ -129,8 +129,7 @@ function createGraph1(monkeybutt) {
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left")
-    //.tickFormat(formatPercent);
-
+    
     var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
@@ -183,67 +182,62 @@ function createGraph1(monkeybutt) {
     //})
 }
 ///////////////GRAPH 2- AREA CHART CODE HERE.../////////////////////////////////////////////
-
-var margin = { top: 20, right: 20, bottom: 30, left: 50 },
+function createGraph2(data) {
+    var margin = { top: 20, right: 20, bottom: 30, left: 50 },
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-var parseDate = d3.time.format("%d-%b-%y").parse;
+    var x = d3.time.scale()
+        .range([0, width]);
 
-var x = d3.time.scale()
-    .range([0, width]);
+    var y = d3.scale.linear()
+        .range([height, 0]);
 
-var y = d3.scale.linear()
-    .range([height, 0]);
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
 
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
 
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
+    var area = d3.svg.area()
+        .x(function (d) { return x(d.year); })
+        .y0(height)
+        .y1(function (d) { return y(d.numberPerYear); });
 
-var area = d3.svg.area()
-    .x(function (d) { return x(d.date); })
-    .y0(height)
-    .y1(function (d) { return y(d.close); });
+    var svg = d3.select(".graph2").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            data.forEach(function (d) {
+            d.year = parseInt(d.year);
+            d.numberPerYear = parseInt(d.numberPerYear;
+        });
 
-d3.tsv("data.tsv", function (error, data) {
-    if (error) throw error;
+        x.domain(d3.extent(data, function (d) { return d.year; }));
+        y.domain([0, d3.max(data, function (d) { return d.numberPerYear; })]);
 
-    data.forEach(function (d) {
-        d.date = parseDate(d.date);
-        d.close = +d.close;
-    });
+        svg.append("path")
+            .datum(data)
+            .attr("class", "area")
+            .attr("d", area);
 
-    x.domain(d3.extent(data, function (d) { return d.date; }));
-    y.domain([0, d3.max(data, function (d) { return d.close; })]);
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
 
-    svg.append("path")
-        .datum(data)
-        .attr("class", "area")
-        .attr("d", area);
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+          .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("Number per Year");
 
-    svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
-
-    svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-      .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("Price ($)");
-});
-//D3 CHART #2 CODE ENDS HERE...
+}
