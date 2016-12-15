@@ -46,26 +46,26 @@ function filteredTychoLevel2death(y, d, s) {   //year, disease, state shorthand
     });
 }
 
-function filteredTychoLevel1(y, d, s) {   //year, disease, state shorthand
-    //console.log(y + d + s);
-    return new Promise(function (resolve, reject) {
-        $.ajax({
-            url: "/Home/GetTychoLevel1ChartData",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({
-                year: y,
-                disease: d,
-                state: s
-            })
+//function filteredTychoLevel1(y, d, s) {   //year, disease, state shorthand
+//    //console.log(y + d + s);
+//    return new Promise(function (resolve, reject) {
+//        $.ajax({
+//            url: "/Home/GetTychoLevel1ChartData",
+//            method: "POST",
+//            contentType: "application/json",
+//            data: JSON.stringify({
+//                year: y,
+//                disease: d,
+//                state: s
+//            })
 
-        }).done(function (data) {
-            resolve(data);
-        }).error(function (e) {    //"e" is my error message.
-            reject(e);
-        });
-    });
-}
+//        }).done(function (data) {
+//            resolve(data);
+//        }).error(function (e) {    //"e" is my error message.
+//            reject(e);
+//        });
+//    });
+//}
 
 //click event actions here..//////////////////////////////////////////////////////////////////////.
 
@@ -91,10 +91,8 @@ $(".submitButton2").on("click", function () {
     filteredTychoLevel2death(disease, state)
         .then(function (returndata) {
 
-            console.log(returndata);
             createGraph2(returndata)
-            //console.log("Graph 2 has fired!");
-        });
+       });
 });
 
 $(".submitButton3").on("click", function () {
@@ -189,7 +187,7 @@ function createGraph2(data) {
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-        var x = d3.time.scale()
+    var x = d3.time.scale()
         .range([0, width]);
 
     var y = d3.scale.linear()
@@ -216,7 +214,7 @@ function createGraph2(data) {
 
             data.forEach(function (d) {
             d.year = parseInt(d.year);
-            d.numberPerYear = +d.numberPerYear;
+            d.numberPerYear = parseInt(d.numberPerYear;
         });
 
         x.domain(d3.extent(data, function (d) { return d.year; }));

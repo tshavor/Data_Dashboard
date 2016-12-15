@@ -81,8 +81,8 @@ namespace Data_Dashboard.Controllers
                                                     
                                                 });
 
-            var orderedData = GetTychoLevel2ChartDataDeath.OrderBy(y => y.Year);
-            return Json(orderedData);  //Object RETURNED!
+            var orderedData = GetTychoLevel2ChartDataDeath.OrderBy(y => y.Year);  //"Year MUST be capitolized!//
+            return Json(GetTychoLevel2ChartDataDeath);  //Object RETURNED!
         }
 
         
