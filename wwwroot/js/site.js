@@ -25,7 +25,7 @@ function filteredTychoLevel2(y, d, s) {   //year, disease, state shorthand
     });
 }
 
-function filteredTychoLevel2death(y, d, s) {   //year, disease, state shorthand
+function filteredTychoLevel2death(d, s) {   //year, disease, state shorthand
     //console.log(y + d + s);
     return new Promise(function (resolve, reject) {
         $.ajax({
@@ -33,7 +33,6 @@ function filteredTychoLevel2death(y, d, s) {   //year, disease, state shorthand
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
-                year: y,
                 disease: d,
                 state: s
             })
@@ -90,10 +89,12 @@ $(".submitButton2").on("click", function () {
     var state = $(".selectedState2").val();
     filteredTychoLevel2death(disease, state)
         .then(function (returndata) {
-
+            console.log(returndata);
             createGraph2(returndata)
-       });
+        });
+
 });
+
 
 $(".submitButton3").on("click", function () {
     var year = $(".selectedYear3").val();
@@ -137,7 +138,7 @@ function createGraph1(monkeybutt) {
         return "<strong>Number per Week:</strong> <span style='color:red'>" + d.numberPerWeek + "</span>";
     });
 
-    var svg = d3.select(".graph1").append("svg")  //replaced body with "graph1"//
+    var svg = d3.select("#graph1").append("svg")  //replaced body with "graph1"//
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -187,6 +188,8 @@ function createGraph2(data) {
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
+    //var parseDate = d3.time.format("%y"); //this was deleted in the working version
+
     var x = d3.time.scale()
         .range([0, width]);
 
@@ -205,16 +208,16 @@ function createGraph2(data) {
         .x(function (d) { return x(d.year); })
         .y0(height)
         .y1(function (d) { return y(d.numberPerYear); });
-
-    var svg = d3.select(".graph2").append("svg")
+    
+    var svg = d3.select("#graph2").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
             data.forEach(function (d) {
-            d.year = parseInt(d.year);
-            d.numberPerYear = parseInt(d.numberPerYear;
+            d.year = parseInt(d.year); //parseInt(d.year)
+            d.numberPerYear = parseInt(d.numberPerYear);
         });
 
         x.domain(d3.extent(data, function (d) { return d.year; }));

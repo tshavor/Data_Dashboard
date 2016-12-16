@@ -60,15 +60,16 @@ namespace Data_Dashboard.Controllers
         //this method queries the data from TychoLevel2 for Chart #2//re-writng for Graph #2
         [HttpPost]
         [Produces("application/json")]
-        //[Route("Home/GetTychoLevel2ChartData/{y}/{d}/{s}")]
+        //[Route("Home/GetTychoLevel2ChartDataDeath/{y}/{d}/{s}")]
         public IActionResult GetTychoLevel2ChartDataDeath ([FromBody] TychoLevel2 data)
         {
-            string year = data.year;
+            //string year = data.year;
             string disease = data.disease;
             string state = data.state;
 
             var GetTychoLevel2ChartDataDeath = (from t in context.TychoLevel2
                                            where t.state == state
+                                           //&& t.year == year
                                            && t.disease == disease
                                            && t.event_type == "DEATHS"
                                                 group t by t.year into ww
