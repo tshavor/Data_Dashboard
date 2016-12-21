@@ -78,9 +78,16 @@ namespace Data_Dashboard.Controllers
                                                     Disease = ww.Select(di => di.disease),
                                                     NumberPerYear = (ww.Select(n => n.number)).Sum(),
                                                     Year = ww.Select(t => t.year),
-
                                                     
-                                                });
+                                                       });
+            //DateTime newDate;
+            //foreach(var date in GetTychoLevel2ChartDataDeath)
+            //    {
+            ////    string formattedDate = "1/1/" + date.Year;
+            //    newDate = Convert.ToDateTime(formattedDate);
+            //    date.Year = formattedDate;
+
+            //    }
 
             var orderedData = GetTychoLevel2ChartDataDeath.OrderBy(y => y.Year);  //"Year MUST be capitolized!//
             return Json(GetTychoLevel2ChartDataDeath);  //Object RETURNED!
