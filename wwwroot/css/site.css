@@ -66,8 +66,8 @@ body {
 
 /*CSS for CHART 2 HERE...*/
 
-/*body {
-  font: 10px sans-serif;
+body {
+  font: 15px sans-serif;
 }
 
 .axis path,
@@ -79,4 +79,4 @@ body {
 
 .area {
   fill: steelblue;
-}*/
+}

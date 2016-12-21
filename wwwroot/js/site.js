@@ -25,7 +25,7 @@ function filteredTychoLevel2(y, d, s) {   //year, disease, state shorthand
     });
 }
 
-function filteredTychoLevel2death(y, d, s) {   //year, disease, state shorthand
+function filteredTychoLevel2death(d, s) {   //year, disease, state shorthand
     //console.log(y + d + s);
     return new Promise(function (resolve, reject) {
         $.ajax({
@@ -33,7 +33,6 @@ function filteredTychoLevel2death(y, d, s) {   //year, disease, state shorthand
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
-                year: y,
                 disease: d,
                 state: s
             })
@@ -90,10 +89,12 @@ $(".submitButton2").on("click", function () {
     var state = $(".selectedState2").val();
     filteredTychoLevel2death(disease, state)
         .then(function (returndata) {
-
+            console.log(returndata);
             createGraph2(returndata)
-       });
+        });
+
 });
+
 
 $(".submitButton3").on("click", function () {
     var year = $(".selectedYear3").val();
@@ -112,16 +113,18 @@ $(".submitButton3").on("click", function () {
 
 function createGraph1(monkeybutt) {
     console.log(monkeybutt);
-    var margin = { top: 40, right: 20, bottom: 30, left: 40 },
-        width = 960 - margin.left - margin.right,
+    // set the dimensions and margins of the graph//
+    var margin = { top: 40, right: 10, bottom: 30, left: 50 },
+        width = 1050 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
+    // set the ranges//
      var x = d3.scale.ordinal()
     .rangeRoundBands([0, width], .1);
 
     var y = d3.scale.linear()
         .range([height, 0]);
-
+    
     var xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom");
@@ -137,7 +140,7 @@ function createGraph1(monkeybutt) {
         return "<strong>Number per Week:</strong> <span style='color:red'>" + d.numberPerWeek + "</span>";
     });
 
-    var svg = d3.select(".graph1").append("svg")  //replaced body with "graph1"//
+    var svg = d3.select("#graph1").append("svg")  
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -145,8 +148,9 @@ function createGraph1(monkeybutt) {
 
     svg.call(tip);
 
-        x.domain(monkeybutt.map(function (d) { return parseInt(d.week); }));  //replaced letter with week//
-        y.domain([0, d3.max(monkeybutt, function (d) { return parseInt(d.numberPerWeek); })]);  //replaced frequency with numberperweek//
+    // define the line//
+        x.domain(monkeybutt.map(function (d) { return parseInt(d.week) }));  
+        y.domain([0, d3.max(monkeybutt, function (d) { return parseInt(d.numberPerWeek); })]); 
 
         svg.append("g")
             .attr("class", "x axis")
@@ -161,7 +165,7 @@ function createGraph1(monkeybutt) {
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Number per Week"); //replaced frequency with "Number per Week"//
+            .text("Number per Week"); 
 
         svg.selectAll(".bar")
             .data(monkeybutt)
@@ -170,25 +174,25 @@ function createGraph1(monkeybutt) {
             .attr("x", function (d) { return x(parseInt(d.week)); })   
         
         .attr("width", x.rangeBand())
-            .attr("y", function (d) { return y(parseInt(d.numberPerWeek)); }) //replaced frequency with numberperweek//
-            .attr("height", function (d) { return height - y(parseInt(d.numberPerWeek)); })  //replaced frequency with numberperweek//
+            .attr("y", function (d) { return y(parseInt(d.numberPerWeek)); })
+            .attr("height", function (d) { return height - y(parseInt(d.numberPerWeek)); })  
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide)
 
         function type(d) {
-            d.numberPerWeek = +d.numberPerWeek;  //replaced frequency with numberperweek//
+            d.numberPerWeek = +d.numberPerWeek;  
             return d;
         };
     //})
 }
 ///////////////GRAPH 2- AREA CHART CODE HERE.../////////////////////////////////////////////
 function createGraph2(data) {
-    var margin = { top: 20, right: 20, bottom: 30, left: 50 },
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    var margin = { top: 20, right: 20, bottom: 50, left: 50 },
+    width = 1050 - margin.left - margin.right,
+    height = 550 - margin.top - margin.bottom;
 
-    var x = d3.time.scale()
-        .range([0, width]);
+     var x = d3.time.scale()
+    .range([0, width]);
 
     var y = d3.scale.linear()
         .range([height, 0]);
@@ -205,20 +209,22 @@ function createGraph2(data) {
         .x(function (d) { return x(d.year); })
         .y0(height)
         .y1(function (d) { return y(d.numberPerYear); });
-
-    var svg = d3.select(".graph2").append("svg")
+    
+    var svg = d3.select("#graph2").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
             data.forEach(function (d) {
-            d.year = parseInt(d.year);
-            d.numberPerYear = parseInt(d.numberPerYear;
+                d.year = parseInt(d.year).toFixed(0);
+            d.numberPerYear = parseInt(d.numberPerYear);
         });
 
-        x.domain(d3.extent(data, function (d) { return d.year; }));
-        y.domain([0, d3.max(data, function (d) { return d.numberPerYear; })]);
+        x.domain(d3.extent(data, function (d) {return d.year;}));
+        y.domain([0, d3.max(data, function (d) {return d.numberPerYear;})]);
+
+
 
         svg.append("path")
             .datum(data)
@@ -228,6 +234,7 @@ function createGraph2(data) {
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
+            .attr("width", "5%")
             .call(xAxis);
 
         svg.append("g")
