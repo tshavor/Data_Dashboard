@@ -70,27 +70,27 @@ function filteredTychoLevel2death(d, s) {   //year, disease, state shorthand
 
 $(".submitButton1").on("click", function () {
     //enter a function to clear the graph here!//
-    clearBox()
+    clearBox();
     
     var year = $(".selectedYear1").val();
     var disease = $(".selectedDisease1").val();
     var state = $(".selectedState1").val();
     filteredTychoLevel2(year, disease, state)
         .then(function (returndata) {
-            createGraph1(returndata)
+            createGraph1(returndata);
  
         });
   });
 
 $(".submitButton2").on("click", function () {
-    clearBox()
+    clearBox();
 
     var disease = $(".selectedDisease2").val();
     var state = $(".selectedState2").val();
     filteredTychoLevel2death(disease, state)
         .then(function (returndata) {
             console.log(returndata);
-            createGraph2(returndata)
+            createGraph2(returndata);
         });
 
 });
@@ -131,7 +131,7 @@ function createGraph1(monkeybutt) {
 
     var yAxis = d3.svg.axis()
         .scale(y)
-        .orient("left")
+        .orient("left");
     
     var tip = d3.tip()
     .attr('class', 'd3-tip')
@@ -171,18 +171,18 @@ function createGraph1(monkeybutt) {
             .data(monkeybutt)
           .enter().append("rect")
             .attr("class", "bar")
-            .attr("x", function (d) { return x(parseInt(d.week)); })   
-        
+            .attr("x", function (d) { return x(parseInt(d.week)); })
+
         .attr("width", x.rangeBand())
             .attr("y", function (d) { return y(parseInt(d.numberPerWeek)); })
-            .attr("height", function (d) { return height - y(parseInt(d.numberPerWeek)); })  
+            .attr("height", function (d) { return height - y(parseInt(d.numberPerWeek)); })
                 .on('mouseover', tip.show)
-                .on('mouseout', tip.hide)
+                .on('mouseout', tip.hide);
 
         function type(d) {
             d.numberPerWeek = +d.numberPerWeek;  
             return d;
-        };
+        }
     //})
 }
 ///////////////GRAPH 2- AREA CHART CODE HERE.../////////////////////////////////////////////
@@ -249,7 +249,7 @@ function createGraph2(data) {
 
 }
 ///////////////GRAPH 3- AREA CHART CODE HERE.../////////////////////////////////////////////
-<script>
+
 function dashboard(id, fData){
     var barColor = 'steelblue';
     function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
@@ -304,7 +304,7 @@ function dashboard(id, fData){
         
         function mouseover(d){  // utility function to be called on mouseover.
             // filter for selected state.
-            var st = fData.filter(function(s){ return s.State == d[0];})[0],
+            var st = fData.filter(function(s){ return s.State === d[0];})[0],
                 nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
                
             // call update functions of pie-chart and legend.    
@@ -319,24 +319,24 @@ function dashboard(id, fData){
         }
         
         // create function to update the bars. This will be used by pie-chart.
-        hG.update = function(nD, color){
+        hG.update = function (nD, color) {
             // update the domain of the y-axis map to reflect change in frequencies.
-            y.domain([0, d3.max(nD, function(d) { return d[1]; })]);
-            
+            y.domain([0, d3.max(nD, function (d) { return d[1]; })]);
+
             // Attach the new data to the bars.
             var bars = hGsvg.selectAll(".bar").data(nD);
-            
+
             // transition the height and color of rectangles.
             bars.select("rect").transition().duration(500)
-                .attr("y", function(d) {return y(d[1]); })
-                .attr("height", function(d) { return hGDim.h - y(d[1]); })
+                .attr("y", function (d) { return y(d[1]); })
+                .attr("height", function (d) { return hGDim.h - y(d[1]); })
                 .attr("fill", color);
 
             // transition the frequency labels location and change value.
             bars.select("text").transition().duration(500)
-                .text(function(d){ return d3.format(",")(d[1])})
-                .attr("y", function(d) {return y(d[1])-5; });            
-        }        
+                .text(function (d) { return d3.format(",")(d[1]) })
+                .attr("y", function (d) { return y(d[1]) - 5; });
+        };
         return hG;
     }
     
@@ -363,10 +363,10 @@ function dashboard(id, fData){
             .on("mouseover",mouseover).on("mouseout",mouseout);
 
         // create function to update pie-chart. This will be used by histogram.
-        pC.update = function(nD){
+        pC.update = function (nD) {
             piesvg.selectAll("path").data(pie(nD)).transition().duration(500)
                 .attrTween("d", arcTween);
-        }        
+        };
         // Utility function to be called on mouseover a pie slice.
         function mouseover(d){
             // call the update function of histogram with new data.
@@ -416,16 +416,16 @@ function dashboard(id, fData){
             .text(function(d){ return getLegend(d,lD);});
 
         // Utility function to be used to update the legend.
-        leg.update = function(nD){
+        leg.update = function (nD) {
             // update the data attached to the row elements.
             var l = legend.select("tbody").selectAll("tr").data(nD);
 
             // update the frequencies.
-            l.select(".legendFreq").text(function(d){ return d3.format(",")(d.freq);});
+            l.select(".legendFreq").text(function (d) { return d3.format(",")(d.freq); });
 
             // update the percentage column.
-            l.select(".legendPerc").text(function(d){ return getLegend(d,nD);});        
-        }
+            l.select(".legendPerc").text(function (d) { return getLegend(d, nD); });
+        };
         
         function getLegend(d,aD){ // Utility function to compute percentage.
             return d3.format("%")(d.freq/d3.sum(aD.map(function(v){ return v.freq; })));
@@ -446,9 +446,8 @@ function dashboard(id, fData){
         pC = pieChart(tF), // create the pie-chart.
         leg= legend(tF);  // create the legend.
 }
-</script>
 
-<script>
+
 var freqData=[
 {State:'AL',freq:{low:4786, mid:1319, high:249}}
 ,{State:'AZ',freq:{low:1101, mid:412, high:674}}
@@ -463,4 +462,4 @@ var freqData=[
 ];
 
 dashboard('#dashboard',freqData);
-</script>
+
