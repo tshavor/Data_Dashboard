@@ -1,7 +1,12 @@
-﻿//clears the indiv graphic on click event//
-function clearBox(graph) {
-    $("#graph").html("");
-}
+﻿//clears the indiv graphic on submit click even -needs work!//
+
+$(".submitButton1").click(function () {   //works
+    $(".graph1").empty();
+});
+
+$(".submitButton2").click(function () { //works
+    $(".graph2").empty();
+});
 
 //AJAX call info here...
 function filteredTychoLevel2(y, d, s) {   //year, disease, state shorthand
@@ -45,32 +50,10 @@ function filteredTychoLevel2death(d, s) {   //year, disease, state shorthand
     });
 }
 
-//function filteredTychoLevel1(y, d, s) {   //year, disease, state shorthand
-//    //console.log(y + d + s);
-//    return new Promise(function (resolve, reject) {
-//        $.ajax({
-//            url: "/Home/GetTychoLevel1ChartData",
-//            method: "POST",
-//            contentType: "application/json",
-//            data: JSON.stringify({
-//                year: y,
-//                disease: d,
-//                state: s
-//            })
-
-//        }).done(function (data) {
-//            resolve(data);
-//        }).error(function (e) {    //"e" is my error message.
-//            reject(e);
-//        });
-//    });
-//}
-
-//click event actions here..//////////////////////////////////////////////////////////////////////.
+//click event actions here..//////////////////////
 
 $(".submitButton1").on("click", function () {
     //enter a function to clear the graph here!//
-    clearBox();
     
     var year = $(".selectedYear1").val();
     var disease = $(".selectedDisease1").val();
@@ -83,8 +66,7 @@ $(".submitButton1").on("click", function () {
   });
 
 $(".submitButton2").on("click", function () {
-    clearBox();
-
+    
     var disease = $(".selectedDisease2").val();
     var state = $(".selectedState2").val();
     filteredTychoLevel2death(disease, state)
@@ -93,18 +75,6 @@ $(".submitButton2").on("click", function () {
             createGraph2(returndata);
         });
 
-});
-
-
-$(".submitButton3").on("click", function () {
-    var year = $(".selectedYear3").val();
-    var disease = $(".selectedDisease3").val();
-    var state = $(".selectedState3").val();
-    filteredTychoLevel1(year, disease, state)
-        .then(function (returndata) {
-            //console.log(returndata);
-
-        });
 });
 
 /////////////////////////D3 GRAPHICS CODE FOLLOWS://////////////////////////////
@@ -155,7 +125,13 @@ function createGraph1(monkeybutt) {
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
+            .call(xAxis)
+
+        svg.append("text")      // text label for the x axis
+        .attr("x", 400)
+        .attr("y", 465)
+        .style("text-anchor", "middle")
+        .text("MMWR Week");
 
         svg.append("g")
             .attr("class", "y axis")
@@ -250,12 +226,13 @@ function createGraph2(data) {
 }
 ///////////////GRAPH 3- AREA CHART CODE HERE.../////////////////////////////////////////////
 
+
 function dashboard(id, fData){
     var barColor = 'steelblue';
-    function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
+    function segColor(c) { return { First: "#807dba", Second: "#e08214", Third: "#41ab5d" }[c]; }
     
     // compute total for each state.
-    fData.forEach(function(d){d.total=d.freq.low+d.freq.mid+d.freq.high;});
+    fData.forEach(function (d) { d.total = d.freq.First + d.freq.Second + d.freq.Third; });
     
     // function to handle histogram.
     function histoGram(fD){
@@ -269,6 +246,7 @@ function dashboard(id, fData){
             .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
             .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
 
+        
         // create function for x-axis mapping.
         var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
                 .domain(fD.map(function(d) { return d[0]; }));
@@ -435,7 +413,7 @@ function dashboard(id, fData){
     }
     
     // calculate total frequency by segment for all state.
-    var tF = ['low','mid','high'].map(function(d){ 
+    var tF = ['First', 'Second', 'Third'].map(function (d) {
         return {type:d, freq: d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
     });    
     
@@ -449,16 +427,16 @@ function dashboard(id, fData){
 
 
 var freqData=[
-{State:'AL',freq:{low:4786, mid:1319, high:249}}
-,{State:'AZ',freq:{low:1101, mid:412, high:674}}
-,{State:'CT',freq:{low:932, mid:2149, high:418}}
-,{State:'DE',freq:{low:832, mid:1152, high:1862}}
-,{State:'FL',freq:{low:4481, mid:3304, high:948}}
-,{State:'GA',freq:{low:1619, mid:167, high:1063}}
-,{State:'IA',freq:{low:1819, mid:247, high:1203}}
-,{State:'IL',freq:{low:4498, mid:3852, high:942}}
-,{State:'IN',freq:{low:797, mid:1849, high:1534}}
-,{State:'KS',freq:{low:162, mid:379, high:471}}
+  { State: 'TN', freq: { First: 4098, Second: 2813, Third: 584 } }
+, { State: 'AL', freq: { First: 2822, Second: 3214, Third: 972 } }
+, { State: 'KY', freq: { First: 4832, Second: 1777, Third: 360 } }
+, { State: 'LA', freq: { First: 5993, Second: 5990, Third: 2193 } }
+, { State: 'VA', freq: { First: 7037, Second: 4494, Third: 1032 } }
+, { State: 'SC', freq: { First: 1202, Second: 598, Third: 263 } }
+, { State: 'NC', freq: { First: 1579, Second: 1719, Third: 636 } }
+, { State: 'IN', freq: { First: 10852, Second: 4466, Third: 1838 } }
+, { State: 'WV', freq: { First: 2225, Second: 1133, Third: 377 } }
+, { State: 'GA', freq: { First: 2617, Second: 2984, Third: 848 } }
 ];
 
 dashboard('#dashboard',freqData);

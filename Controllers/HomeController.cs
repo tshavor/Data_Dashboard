@@ -29,10 +29,9 @@ namespace Data_Dashboard.Controllers
             return View();
         }
 
-        //this method queries the data from TychoLevel2 for Chart #1//works!
+        //this method queries the data from TychoLevel2 for Chart #1//
         [HttpPost]
         [Produces("application/json")]
-        //[Route("Home/GetTychoLevel2ChartData/{y}/{d}/{s}")]
         public IActionResult GetTychoLevel2ChartData([FromBody] TychoLevel2 data)
         {
             string  year = data.year;
@@ -60,16 +59,13 @@ namespace Data_Dashboard.Controllers
         //this method queries the data from TychoLevel2 for Chart #2//re-writng for Graph #2
         [HttpPost]
         [Produces("application/json")]
-        //[Route("Home/GetTychoLevel2ChartDataDeath/{y}/{d}/{s}")]
         public IActionResult GetTychoLevel2ChartDataDeath ([FromBody] TychoLevel2 data)
         {
-            //string year = data.year;
             string disease = data.disease;
             string state = data.state;
 
             var GetTychoLevel2ChartDataDeath = (from t in context.TychoLevel2
                                            where t.state == state
-                                           //&& t.year == year
                                            && t.disease == disease
                                            && t.event_type == "DEATHS"
                                                 group t by t.year into ww
@@ -80,20 +76,11 @@ namespace Data_Dashboard.Controllers
                                                     Year = ww.Select(t => t.year),
                                                     
                                                        });
-            //DateTime newDate;
-            //foreach(var date in GetTychoLevel2ChartDataDeath)
-            //    {
-            ////    string formattedDate = "1/1/" + date.Year;
-            //    newDate = Convert.ToDateTime(formattedDate);
-            //    date.Year = formattedDate;
-
-            //    }
-
+            
             var orderedData = GetTychoLevel2ChartDataDeath.OrderBy(y => y.Year);  //"Year MUST be capitolized!//
             return Json(GetTychoLevel2ChartDataDeath);  //Object RETURNED!
         }
 
-        
         public IActionResult About()
         {
             return View();
