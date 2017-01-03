@@ -1,4 +1,4 @@
-﻿//clears the indiv graphic on submit click even -needs work!//
+﻿//clears the indiv graphic on submit click//
 
 $(".submitButton1").click(function () {   //works
     $(".graph1").empty();
@@ -59,6 +59,9 @@ $(".submitButton1").on("click", function () {
     var disease = $(".selectedDisease1").val();
     var state = $(".selectedState1").val();
     filteredTychoLevel2(year, disease, state)
+
+
+
         .then(function (returndata) {
             createGraph1(returndata);
  
@@ -71,7 +74,7 @@ $(".submitButton2").on("click", function () {
     var state = $(".selectedState2").val();
     filteredTychoLevel2death(disease, state)
         .then(function (returndata) {
-            console.log(returndata);
+            //console.log(returndata);
             createGraph2(returndata);
         });
 
