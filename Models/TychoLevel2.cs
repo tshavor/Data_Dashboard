@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Data_Dashboard.Models
+﻿namespace Data_Dashboard.Models
 {
     public class TychoLevel2
     {

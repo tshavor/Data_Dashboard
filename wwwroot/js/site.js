@@ -1,14 +1,15 @@
-﻿//clears the indiv graphic on submit click//
+﻿//this function clears the indiv graphics on submit click//
 
-$(".submitButton1").click(function () {   //works
+$(".submitButton1").click(function () {   
     $(".graph1").empty();
 });
 
-$(".submitButton2").click(function () { //works
+$(".submitButton2").click(function () { 
     $(".graph2").empty();
 });
 
-//AJAX call info here...
+////////////////////////////////AJAX call info here...////////////////////////////////////////////////////////////////
+
 function filteredTychoLevel2(y, d, s) {   //year, disease, state shorthand
     //console.log(y + d + s);
     return new Promise(function (resolve, reject) {
@@ -49,9 +50,21 @@ function filteredTychoLevel2death(d, s) {   //year, disease, state shorthand
         });
     });
 }
+////pageload graph specs here...///
+filteredTychoLevel2("1920", "DIPHTHERIA", "NY")
+
+        .then(function (returndata) {
+            createGraph1(returndata);
+        });
+
+filteredTychoLevel2death("DIPHTHERIA", "NY")
+        .then(function (returndata) {
+            createGraph2(returndata);
+        });
+
+
 
 //click event actions here..//////////////////////
-
 $(".submitButton1").on("click", function () {
     //enter a function to clear the graph here!//
     
@@ -59,8 +72,6 @@ $(".submitButton1").on("click", function () {
     var disease = $(".selectedDisease1").val();
     var state = $(".selectedState1").val();
     filteredTychoLevel2(year, disease, state)
-
-
 
         .then(function (returndata) {
             createGraph1(returndata);
@@ -85,7 +96,7 @@ $(".submitButton2").on("click", function () {
 //GRAPH #1//////// Create a function here that runs on click event of SubmitButton1///
 
 function createGraph1(monkeybutt) {
-    console.log(monkeybutt);
+    //console.log(monkeybutt);
     // set the dimensions and margins of the graph//
     var margin = { top: 40, right: 10, bottom: 30, left: 50 },
         width = 1050 - margin.left - margin.right,
@@ -142,7 +153,7 @@ function createGraph1(monkeybutt) {
           .append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 6)
-            .attr("dy", ".71em")
+            .attr("dy", ".9em")
             .style("text-anchor", "end")
             .text("Number per Week"); 
 
@@ -442,5 +453,9 @@ var freqData=[
 , { State: 'GA', freq: { First: 2617, Second: 2984, Third: 848 } }
 ];
 
-dashboard('#dashboard',freqData);
+dashboard('#dashboard', freqData);
+
+//////////////////Chloropleth Map Code Here//////////////////////
+
+
 

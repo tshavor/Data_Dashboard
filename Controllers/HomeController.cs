@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Data_Dashboard.Data;
 using Data_Dashboard.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 using Data_Dashboard.Views.View_Model;
-using System.Collections;
 
 namespace Data_Dashboard.Controllers
 {
-   public class HomeController : Controller
+    public class HomeController : Controller
     {
         private Data_DashboardContext context;
         public HomeController(Data_DashboardContext ctx)

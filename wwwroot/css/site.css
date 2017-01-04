@@ -79,7 +79,11 @@ body {
 }
 
 .area {
-  fill: black;
+  fill: steelblue;
+}
+
+#graph2 > svg > g > path {
+ fill: steelblue;
 }
 
 body{
