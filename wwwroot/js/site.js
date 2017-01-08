@@ -50,7 +50,7 @@ function filteredTychoLevel2death(d, s) {   //year, disease, state shorthand
         });
     });
 }
-////pageload graph specs here...///
+////pageload graph specs here...//////////////////
 filteredTychoLevel2("1920", "DIPHTHERIA", "NY")
 
         .then(function (returndata) {
@@ -64,9 +64,9 @@ filteredTychoLevel2death("DIPHTHERIA", "NY")
 
 
 
-//click event actions here..//////////////////////
+//click event actions that create graphs 1 and 2 here..////////////
 $(".submitButton1").on("click", function () {
-    //enter a function to clear the graph here!//
+  
     
     var year = $(".selectedYear1").val();
     var disease = $(".selectedDisease1").val();
@@ -141,11 +141,11 @@ function createGraph1(monkeybutt) {
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis)
 
-        svg.append("text")      // text label for the x axis
-        .attr("x", 400)
-        .attr("y", 465)
-        .style("text-anchor", "middle")
-        .text("MMWR Week");
+        //svg.append("text")      // text label for the x axis
+        //.attr("x", 400)
+        //.attr("y", 465)
+        //.style("text-anchor", "middle")
+        //.text("MMWR Week");
 
         svg.append("g")
             .attr("class", "y axis")
@@ -455,7 +455,7 @@ var freqData=[
 
 dashboard('#dashboard', freqData);
 
-//////////////////Chloropleth Map Code Here//////////////////////
+
 
 
 
