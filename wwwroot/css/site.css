@@ -79,7 +79,11 @@ body {
 }
 
 .area {
-  fill: black;
+  fill: steelblue;
+}
+
+#graph2 > svg > g > path {
+ fill: #41AB5D;
 }
 
 body{
@@ -114,4 +118,8 @@ rect:hover {  fill:blue; }
 .legendFreq, .legendPerc{
     text-align:right;  /*//changed from "ALIGN" in code on D3 website...//*/
     width:50px;
+}
+
+.graph_label {
+    padding-left: 445px;
 }
